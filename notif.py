@@ -5,13 +5,13 @@ from email.mime.multipart import MIMEMultipart
 import os
 
 sender_email = "aadit.automation@gmail.com"
-receiver_email = "aadit.tambe@gmail.com"
+receiver_email = os.environ['EMAIL_ADDRESS']
 password = os.environ['EMAIL_KEY']
 
 message = MIMEMultipart("alternative")
 message["Subject"] = "Amazon Kindle price update"
 message["From"] = "aadit.automation@gmail.com"
-message["To"] = "aadit.tambe@gmail.com"
+message["To"] = os.environ['EMAIL_ADDRESS']
 message["Cc"] = "aadit.automation@gmail.com"
 
 f = open("log_price_only.txt", "r")

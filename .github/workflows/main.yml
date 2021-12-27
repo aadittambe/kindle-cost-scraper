@@ -3,6 +3,7 @@
 name: CI
 env: 
   EMAIL_KEY: ${{ secrets.EMAIL_KEY}}
+  EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS}}
 
 on:
   schedule:
