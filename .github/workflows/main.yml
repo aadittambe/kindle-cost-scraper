@@ -32,6 +32,12 @@ jobs:
         shell: bash
         run: |
           python scraper.py
+
+      - name: Email
+        shell: bash
+        run: |
+          python notif.py
+        
       - name: Add and commit and push
         run: |
           git fetch
