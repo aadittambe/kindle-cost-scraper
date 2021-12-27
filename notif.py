@@ -27,7 +27,7 @@ if (price_list[-1]) < (price_list[-2]):
     text = """\
     Hey there,
 
-    There's an update on the price of an Amazon Kindle that you might be interested in: The price has dropped!
+    There's an update on the price of an Amazon Kindle: The price has dropped!
 
     This message was automated with Python and GitHub Actions.
     """
@@ -35,7 +35,7 @@ if (price_list[-1]) < (price_list[-2]):
     <html>
       <body>
         <p>Hey there,<br>
-          There's an update on the price of an Amazon Kindle that you might be interested in: The price has dropped!<br>
+          There's an update on the price of an Amazon Kindle: The price has dropped!<br>
           This message was automated with Python and GitHub Actions.
         </p>
       </body>
