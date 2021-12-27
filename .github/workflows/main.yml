@@ -24,7 +24,7 @@ jobs:
           python-version: 3.8
 
       - name: Install dependencies
-        run: python -m pip install selenium requests pandas beautifulsoup4 tabula-py geopy unidecode webdriver-manager 
+        run: python -m pip install selenium requests pandas beautifulsoup4 tabula-py geopy unidecode webdriver-manager email-to
           
       - id: install-chromedriver
         name: Install chromedriver
@@ -38,7 +38,7 @@ jobs:
       - name: Email
         shell: bash
         run: |
-          python notif.py
+          python test_notif.py
         
       - name: Add and commit and push
         run: |
