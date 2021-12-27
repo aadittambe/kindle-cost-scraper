@@ -20,18 +20,16 @@ for line in lines:
 
 if (price_list[-1]) < (price_list[-2]):
     msg1 = "Price is lower than the last time! \n This message was automated with Python and GitHub Actions."
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, msg1)
     if (price_list[-1]) == min(price_list):
         msg2 = "Lowest price ever! \n This message was automated with Python and GitHub Actions."
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, msg2)
     else:
-        msg2 = ""
         print("Price is not the lowest ever.")
 else:
-    msg1 = ""
     print("No change in price.")
-
-message = msg1 + '\n' + msg2
-
-context = ssl.create_default_context()
-with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-    server.login(sender_email, password)
-    server.sendmail(sender_email, receiver_email, message)
