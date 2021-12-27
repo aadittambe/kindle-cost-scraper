@@ -19,16 +19,15 @@ for line in lines:
     price_list.append(price)
 
 if (price_list[-1]) < (price_list[-2]):
-    msg1 = "price lower than last time!"
+    msg1 = "Price is lower than the last time! \n This message was automated with Python and GitHub Actions."
+    if (price_list[-1]) == min(price_list):
+        msg2 = "Lowest price ever! \n This message was automated with Python and GitHub Actions."
+    else:
+        msg2 = ""
+        print("Price is not the lowest ever.")
 else:
     msg1 = ""
     print("No change in price.")
-
-if (price_list[-1]) == min(price_list):
-    msg2 = "price lowest ever!"
-else:
-    msg2 = ""
-    print("Price is not the lowest ever.")
 
 message = msg1 + '\n' + msg2
 
