@@ -38,7 +38,7 @@ jobs:
       - name: Email
         shell: bash
         run: |
-          python test_notif.py
+          python notif.py
         
       - name: Add and commit and push
         run: |

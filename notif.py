@@ -1,17 +1,22 @@
 import smtplib
 import ssl
-import pandas as pd
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import os
+
+sender_email = "aadit.automation@gmail.com"
+receiver_email = "aadit.tambe@gmail.com"
+password = os.environ['EMAIL_KEY']
+
+message = MIMEMultipart("alternative")
+message["Subject"] = "Amazon Kindle price update"
+message["From"] = "aadit.automation@gmail.com"
+message["To"] = "aadit.tambe@gmail.com"
+message["Cc"] = "aadit.automation@gmail.com"
 
 f = open("log_price_only.txt", "r")
 file = (f.read())
 lines = file.split("\n")
-
-port = 465  # For SSL
-smtp_server = "smtp.gmail.com"
-sender_email = "aadit.automation@gmail.com"  # Enter your address
-receiver_email = "aadit.tambe@gmail.com"  # Enter receiver address
-password = os.environ['EMAIL_KEY']
 
 price_list = []
 for line in lines:
@@ -19,17 +24,36 @@ for line in lines:
     price_list.append(price)
 
 if (price_list[-1]) < (price_list[-2]):
-    msg1 = "Price is lower than the last time! \n This message was automated with Python and GitHub Actions."
+    text = """\
+    Hey there,
+
+    There's an update on the price of an Amazon Kindle that you might be interested in: The price has dropped!
+
+    This message was automated with Python and GitHub Actions.
+    """
+    html = """\
+    <html>
+      <body>
+        <p>Hey there,<br>
+          There's an update on the price of an Amazon Kindle that you might be interested in: The price has dropped!<br>
+          This message was automated with Python and GitHub Actions.
+        </p>
+      </body>
+    </html>
+    """
+
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+
+    message.attach(part1)
+    message.attach(part2)
+
     context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, msg1)
-    if (price_list[-1]) == min(price_list):
-        msg2 = "Lowest price ever! \n This message was automated with Python and GitHub Actions."
-        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-            server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, msg2)
-    else:
-        print("Price is not the lowest ever.")
+        server.sendmail(
+            sender_email, receiver_email, message.as_string()
+        )
+
 else:
-    print("No change in price.")
+    print("No drop in price.")
