@@ -47,6 +47,5 @@ jobs:
           git pull
           git add --all
           git config user.name "Automated"
-          git config user.email "actions@users.noreply.github.com"
           git commit -m "Latest data" 
           git push
