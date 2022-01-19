@@ -23,7 +23,7 @@ for line in lines:
     price = float(line.strip("$"))
     price_list.append(price)
 
-if (price_list[-1]) <= (price_list[-2]):
+if (price_list[-1]) < (price_list[-2]):
     text = """\
     Hey there,
 
