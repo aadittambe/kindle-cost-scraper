@@ -23,7 +23,7 @@ import re
 import unidecode
 
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -35,6 +35,16 @@ driver = webdriver.Chrome(
 )
 driver.get(
     "https://www.amazon.com/Kindle-Now-with-Built-in-Front-Light/dp/B07978J597/")
+
+ss_date = datetime.now()
+
+element = driver.find_element_by_tag_name('body')
+element_png = element.screenshot_as_png
+with open(f"ss/ss_{ss_date}.png", "wb") as file:
+    file.write(element_png)
+
+# driver.save_screenshot()
+
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 price_raw = soup.find("span", {"class": "a-offscreen"})
@@ -49,5 +59,7 @@ with open('log_with_date.txt', 'a') as f:
 with open('log_price_only.txt', 'a') as f:
     f.write('\n')
     f.write(f'{price}')
+
+driver.quit()
 print('Logged!')
 print('Done!')
